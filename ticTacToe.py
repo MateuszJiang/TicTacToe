@@ -12,23 +12,33 @@ class Game:
     winner = None
     current_player = Player.player_one
 
+
+    def restart(self):
+        self.board_fields = [ "-","-","-",
+                               "-","-","-",
+                                "-","-","-" ]
+        self.is_game_going = True
+        self.winner = None
+        self.current_player = Player.player_one
+
+        
     def draw_board(self):
         for i in range (0, 8, 3):
             print( self.board_fields[i], "|" , self.board_fields[i+1] , "|" , self.board_fields[i+2] )
  
     def handle_turn(self):
         print (self.current_player.value + "'s turn!")
-        position = int(input("Choose a position from 1-9"))
+        position = int(input("Choose a position from 1-9: "))
         Valid = False
         while not Valid:
             while position not in range(1,10):
-                position = int(input("Wrong Position, choose a position from 1-9"))
+                position = int(input("Wrong Position, choose a position from 1-9: "))
             position = position - 1
             if self.board_fields[position] == "-":
                 Valid = True
             else:
                 print("Position taken, try again")
-                position = int(input("Choose a position from 1-9"))
+                position = int(input("Choose a position from 1-9: "))
         
         self.board_fields[position] = self.current_player.value
         self.draw_board()
@@ -51,6 +61,7 @@ class Game:
             print("Player two won !")
         else:
             print("Game tied!!!")
+        self.restart()
 
     def play_game(self):
         self.draw_board()
@@ -104,4 +115,15 @@ class Game:
 
 
 start_game = Game()
-start_game.play_game()
+
+print("              HI! ")
+print("This is a simple TicTacToe game")
+
+while True:
+    print( "In order to start click enter")
+    print( "If yo wanna quit click Escape")
+    determine_user_action = input("")
+    if determine_user_action == "":
+        start_game.play_game()
+    else:
+        break
